@@ -6,30 +6,25 @@ public class WASDMovement : MonoBehaviour {
 
 	public float speed = 20f;
 
-    void Update () {
-        Vector3 pos = transform.position;
+    void Update()
+    {
+        MovePlayer();
+        ShootTurret();
+    }
+    void MovePlayer() //-Se mueve el movimiento del jugador en un método para simplificar el código
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        if (Input.GetKey ("w")) {
-            pos.z += speed * Time.deltaTime;
-        }
+        Vector3 movement = new Vector3(horizontal, 0, vertical);
 
-        if (Input.GetKey ("s")) {
-            pos.z -= speed * Time.deltaTime;
-        }
-
-        if (Input.GetKey ("d")) {
-            pos.x += speed * Time.deltaTime;
-        }
-
-        if (Input.GetKey ("a")) {
-            pos.x -= speed * Time.deltaTime;
-        }
-        if (Input.GetMouseButtonDown(0))//Se utiliza la instancia de TurretAI para llamar a Shoot
+        transform.Translate(movement * speed * Time.deltaTime, Space.World);
+    }
+    void ShootTurret()
+    {
+        if (Input.GetMouseButtonDown(0))//-Se utiliza la instancia de TurretAI para llamar a Shoot
         {
             TurretAI.Instance.Shoot(TurretAI.Instance.currentTarget);
-            Debug.Log(TurretAI.Instance);
         }
-
-        transform.position = pos;
     }
 }

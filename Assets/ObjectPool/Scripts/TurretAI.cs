@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretAI : MonoBehaviour {
-    public static TurretAI Instance { get; private set; } //Instancia del script
+public class TurretAI : MonoBehaviour { 
+    public static TurretAI Instance { get; private set; } //-Instancia del script
 
     [Header("Object Pool Settings")]
     [SerializeField] int poolSize = 10;  //-Tamaño de la cantidad de proyectiles
@@ -24,7 +24,6 @@ public class TurretAI : MonoBehaviour {
     private float timer;
     public float loockSpeed;
 
-    //public Quaternion randomRot;
     public Vector3 randomRot;
     public Animator animator;
 
@@ -33,25 +32,21 @@ public class TurretAI : MonoBehaviour {
     
     public Transform muzzleMain;
     public Transform muzzleSub;
-    //public GameObject muzzleEff;
     public GameObject bullet;
     private bool shootLeft = true;
 
     private Transform lockOnPos;
 
-    //public TurretShoot_Base shotScript;
 
     void Start () {
 
         if (Instance == null)
         {
             Instance = this;
-            Debug.Log(Instance);
         }
        
 
         InvokeRepeating("ChackForTarget", 0, 0.5f);
-        //shotScript = GetComponent<TurretShoot_Base>();
 
         for (int i = 0; i < poolSize; i++) //-Crea las balas, las desactiva y las agrega a la lista
         {
@@ -75,7 +70,6 @@ public class TurretAI : MonoBehaviour {
             if (Instance == null)
             {
                 Instance = this;
-                Debug.Log(Instance);
             }
             float currentTargetDist = Vector3.Distance(transform.position, currentTarget.transform.position);
             if (currentTargetDist > attackDist)
@@ -88,24 +82,7 @@ public class TurretAI : MonoBehaviour {
             IdleRitate();
         }
 
-        //timer += Time.deltaTime;
-        //if (timer >= shootCoolDown)
-        //{
-        //    if (currentTarget != null)
-        //    {
-        //        timer = 0;
-
-        //        if (animator != null)
-        //        {
-        //            animator.SetTrigger("Fire");
-        //            ShootTrigger();
-        //        }
-        //        else
-        //        {
-        //            ShootTrigger();
-        //        }
-        //    }
-        //}
+        
     }
 
     private void ChackForTarget()
@@ -131,7 +108,6 @@ public class TurretAI : MonoBehaviour {
     {
         Vector3 targetDir = currentTarget.transform.position - turreyHead.position;
         targetDir.y = 0;
-        //turreyHead.forward = targetDir;
         if (turretType == TurretType.Single)
         {
             turreyHead.forward = targetDir;
@@ -143,12 +119,6 @@ public class TurretAI : MonoBehaviour {
         }
     }
 
-    private void ShootTrigger()
-    {
-        //shotScript.Shoot(currentTarget);
-        Shoot(currentTarget);
-        //Debug.Log("We shoot some stuff!");
-    }
     
     Vector3 CalculateVelocity(Vector3 target, Vector3 origen, float time)
     {

@@ -14,8 +14,6 @@ public class Projectile : MonoBehaviour {
 
     public float knockBack = 0.1f;
     public float boomTimer = 1;
-    //public Vector3 _startPosition;
-    //public float dist;
 
     public ParticleSystem explosion;
 
